@@ -1,0 +1,8 @@
+<u>Список монеток добавленых в базу!</u>
+{% for counter, coin in func.enumerate(data) %}
+<b><ins>    №{{counter+1}}</ins></b><i>
+    Название: {{coin.name}}
+    Краткое имя: {{coin.shortcut}}
+    Капитализация: {{coin.capitalization if coin.capitalization is not none else 'Нет информации'}}
+    Детальная информация: /get{{coin.shortcut}}</i>
+{% endfor %}

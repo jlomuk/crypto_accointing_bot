@@ -1,11 +1,10 @@
 <u>Список монеток добавленых в базу:</u>
-{% if data %}
-{% for counter, coin in func.enumerate(data) %}<b><ins>
+{% if data %}{% for counter, coin in func.enumerate(data) %}<b><ins>
 № {{counter+1}}</ins></b><i>
 Название: {{coin.name}}
 Краткое имя: {{coin.shortcut}}
 Детально: /get_coin{{coin.shortcut}}</i>
 {% endfor %}
 {% else %}
-<b> Монеты в базу отсутствуют</b>
+<b> Монеты в базе отсутствуют</b>
 {%endif%}

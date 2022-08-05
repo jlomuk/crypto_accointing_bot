@@ -8,9 +8,6 @@ menu_buttons = ReplyKeyboardMarkup(
         [
             KeyboardButton('Добавить продажу/покупку криптомонеты')
         ],
-        [
-            KeyboardButton('Отмена')
-        ]
     ],
     resize_keyboard=True
 )
@@ -44,7 +41,6 @@ action_crypto_buttons = ReplyKeyboardMarkup(
 )
 
 cancel_button = ReplyKeyboardMarkup(
-
     [
         [
             KeyboardButton('Отмена')
@@ -54,7 +50,6 @@ cancel_button = ReplyKeyboardMarkup(
 )
 
 confirm_crypto_buttons = ReplyKeyboardMarkup(
-
     [
         [
             KeyboardButton('Подтвердить'),

@@ -1,6 +1,6 @@
 from sqlalchemy.exc import NoResultFound
 
-from crud.coin_crud import CoinCRUD
+from repository.coin_crud import CoinCRUD
 from schemas.coin_schemas import Coin, GetCoinRequest, DeleteCoinRequest, CreateCoinRequest
 
 

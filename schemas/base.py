@@ -1,8 +1,8 @@
-from typing import Any, Callable
+from typing import Any, Callable, Optional
 
 from pydantic import BaseModel
 
 
 class Contex(BaseModel):
     data: Any
-    func: Callable | None
+    func: Optional[Callable] = None

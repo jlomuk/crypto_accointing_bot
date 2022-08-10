@@ -1,11 +1,11 @@
 from sqlalchemy import select, delete
 from sqlalchemy.engine import CursorResult
 
-from .base_crud import BaseCRUD
+from .base import BaseRepository
 from models.coin import coin
 
 
-class CoinCRUD(BaseCRUD):
+class CoinRepository(BaseRepository):
     Table = coin
 
     async def retrieve(self, shortcut: str) -> dict:

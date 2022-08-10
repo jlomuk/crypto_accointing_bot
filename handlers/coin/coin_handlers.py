@@ -2,10 +2,9 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Text
 from aiogram.types import Message, ReplyKeyboardRemove
 from sqlalchemy.exc import NoResultFound
-from loguru import logger
 
-from keyboards.reply_keyboard import action_crypto_buttons, action_list_crypto_buttons, confirm_crypto_buttons, \
-    cancel_button
+from keyboards.coin_keyboard import action_crypto_buttons, action_list_crypto_buttons
+from keyboards.default_keyboard import confirm_buttons, cancel_button
 from schemas.base import Contex
 from schemas.coin_schemas import GetCoinRequest, DeleteCoinRequest, CreateCoinRequest
 from services.coin_service import CoinService
@@ -96,7 +95,7 @@ async def destroy_process_shortcut(message: Message, state: FSMContext):
 
     template = jinja_env.get_template('coins/delete_coin.html')
     context = Contex(data=coin)
-    return await message.reply(template.render(context.dict()), reply_markup=confirm_crypto_buttons)
+    return await message.reply(template.render(context.dict()), reply_markup=confirm_buttons)
 
 
 @dp.message_handler(Text(equals='Подтвердить', ignore_case=True), state=states.DeleteCoinStates.delete_coin)

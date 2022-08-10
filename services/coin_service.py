@@ -1,13 +1,11 @@
-from sqlalchemy.exc import NoResultFound
-
-from repository.coin_crud import CoinCRUD
+from adapters.coin import CoinRepository
 from schemas.coin_schemas import Coin, GetCoinRequest, DeleteCoinRequest, CreateCoinRequest
 
 
 class CoinService:
 
     def __init__(self):
-        self.coin_crud = CoinCRUD()
+        self.coin_crud = CoinRepository()
 
     async def list_coin(self) -> list[Coin]:
         db_result = await self.coin_crud.list()

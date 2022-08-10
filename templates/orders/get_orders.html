@@ -1,0 +1,8 @@
+<u>Список ордеров по монете:</u>
+
+<b> ID   Наз-ие       Кол-во     Цена         Действие  Дата </b>
+{% if data %}{% for counter, order in func.enumerate(data) %}<b> {{order.id}}       </b><i>{{order.shortcut}}          {{order.count}}    {{order.price}}   {{order.action}}    {{order.created_date}}</i>
+{% endfor %}
+{% else %}
+<b>Ордеров по монете нет</b>
+{%endif%}

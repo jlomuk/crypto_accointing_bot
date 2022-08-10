@@ -9,3 +9,7 @@ class DeleteCoinStates(StatesGroup):
 class CreateCoinStates(StatesGroup):
     name = State()
     shortcut = State()
+
+
+class GetOrderStates(StatesGroup):
+    shortcut = State()

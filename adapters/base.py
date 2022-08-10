@@ -9,7 +9,7 @@ from database.db import engine
 TableType = TypeVar('TableType', bound=Table)
 
 
-class BaseCRUD:
+class BaseRepository:
     Table: TableType = None
 
     def __init__(self):

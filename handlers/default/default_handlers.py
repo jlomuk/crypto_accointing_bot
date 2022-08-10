@@ -3,12 +3,12 @@ from aiogram.dispatcher.filters import Command, Text
 from aiogram.types import Message, ReplyKeyboardRemove
 from loguru import logger
 
-from keyboards.reply_keyboard import menu_buttons
+from keyboards.default_keyboard import menu_buttons
 from loader import dp, jinja_env
 
 
 @dp.message_handler(Command(['menu', 'меню'], ignore_case=True))
-async def test(message: Message):
+async def menu(message: Message):
     template = jinja_env.get_template('index.html')
     return await message.reply(template.render(), reply_markup=menu_buttons)
 

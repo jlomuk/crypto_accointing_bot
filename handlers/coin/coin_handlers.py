@@ -2,6 +2,7 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Text
 from aiogram.types import Message, ReplyKeyboardRemove
 from sqlalchemy.exc import NoResultFound
+from loguru import logger
 
 from keyboards.coin_keyboard import action_crypto_buttons, action_list_crypto_buttons
 from keyboards.default_keyboard import confirm_buttons, cancel_button
@@ -34,11 +35,11 @@ async def get_coin(message: Message):
     try:
         coin = await CoinService().get_coin(coin_req)
     except NoResultFound:
-        return await message.reply("<b>Данной монеты нет в базе</b>", reply_markup=ReplyKeyboardRemove())
+        return await message.reply("<b>Данной монеты нет в базе</b>", reply_markup=action_list_crypto_buttons)
 
     template = jinja_env.get_template('coins/get_coin.html')
     context = Contex(data=coin)
-    return await message.reply(template.render(context.dict()), reply_markup=ReplyKeyboardRemove())
+    return await message.reply(template.render(context.dict()), reply_markup=action_list_crypto_buttons)
 
 
 # ================ Обработчики для добавления монеты ==========================================
@@ -50,7 +51,7 @@ async def add_cryptocoin(message: Message):
 
 @dp.message_handler(lambda message: message.text.lower() != 'отмена', state=states.CreateCoinStates.name)
 async def add_process_name(message: Message, state: FSMContext):
-    await state.update_data(name=message.text)
+    await state.update_data(name=message.text.title())
     await states.CreateCoinStates.next()
     return await message.reply('Введите краткое название монеты', reply_markup=cancel_button)
 
@@ -61,9 +62,11 @@ async def add_process_shortcut(message: Message, state: FSMContext):
 
     async with state.proxy() as data:
         coin_req = CreateCoinRequest(**data)
+
     try:
         added_coin = await CoinService().create_coin(coin_req)
-    except:
+    except Exception as e:
+        logger.bind(message=message).error(str(e))
         return await message.reply('Невозможно добавить монету', reply_markup=action_list_crypto_buttons)
     finally:
         await state.finish()
@@ -86,7 +89,8 @@ async def destroy_process_shortcut(message: Message, state: FSMContext):
 
     try:
         coin = await CoinService().get_coin(coin_req)
-    except NoResultFound:
+    except NoResultFound as e:
+        logger.bind(message=message).debug(f"Монета отсутсвует в БД")
         await state.finish()
         return await message.reply("<b>Данной монеты нет в базе</b>", reply_markup=action_list_crypto_buttons)
 
@@ -105,7 +109,8 @@ async def destroy_process_confirm(message: Message, state: FSMContext):
 
     try:
         await CoinService().delete_coin(coin_req)
-    except:
+    except Exception as e:
+        logger.bind(message=message).error(str(e))
         return await message.reply('Невозможно удалить монету', reply_markup=action_list_crypto_buttons)
     finally:
         await state.finish()

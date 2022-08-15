@@ -9,6 +9,6 @@ def setup_logger():
                  "|| <level>{level}</level>: " \
                  "{message}\t" \
                  "<r><<module:{module}__func:{function}__line:{line}>></r> || " \
-                 "<y>paylod={extra}</y>"
+                 "<y>payload={extra}</y>"
 
     logger.add(sink=sys.stdout, level=LOGGER_LEVEL, format=format_log, colorize=True, backtrace=True, diagnose=True)

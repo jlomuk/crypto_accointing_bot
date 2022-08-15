@@ -13,3 +13,14 @@ class CreateCoinStates(StatesGroup):
 
 class GetOrderStates(StatesGroup):
     shortcut = State()
+
+
+class AddOrderStates(StatesGroup):
+    action = State()
+    shortcut = State()
+    count = State()
+    price = State()
+
+
+class DeleteOrderStates(StatesGroup):
+    pk = State()

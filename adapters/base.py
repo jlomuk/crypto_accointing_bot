@@ -1,6 +1,6 @@
 from typing import TypeVar
 
-from sqlalchemy import select, delete, insert
+from sqlalchemy import select, delete, insert, distinct
 from sqlalchemy.engine import CursorResult
 from sqlalchemy.sql.schema import Table
 from sqlalchemy.ext.asyncio.engine import AsyncEngine
@@ -37,3 +37,8 @@ class BaseRepository:
         statement = delete(self.table).where(self.table.c.id == pk)
         async with self.connection.begin() as conn:
             await conn.execute(statement)
+
+    async def distinct_shortcuts(self) -> dict:
+        async with self.connection.begin() as conn:
+            result: CursorResult = await conn.execute(select(distinct(self.table.c.shortcut)))
+            return result.mappings().all()

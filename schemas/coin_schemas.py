@@ -22,7 +22,6 @@ class CreateCoinRequest(DeleteCoinRequest):
 
 
 class GetCoinRequest(DeleteCoinRequest):
-    shortcut: str
 
     @validator('shortcut', pre=True)
     def split_str(cls, v):

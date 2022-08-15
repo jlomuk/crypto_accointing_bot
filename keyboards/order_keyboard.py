@@ -15,3 +15,28 @@ action_order_buttons = ReplyKeyboardMarkup(
     ],
     resize_keyboard=True
 )
+
+type_action_order = ReplyKeyboardMarkup(
+    [
+        [
+            KeyboardButton('Покупка'),
+            KeyboardButton('Продажа'),
+        ],
+        [
+            KeyboardButton('Отмена')
+        ]
+    ],
+    resize_keyboard=True
+)
+
+delete_order_buttons = ReplyKeyboardMarkup(
+    [
+        [
+            KeyboardButton('Удалить ордер'),
+        ],
+        [
+            KeyboardButton('Отмена')
+        ]
+    ],
+    resize_keyboard=True
+)

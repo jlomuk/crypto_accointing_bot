@@ -7,7 +7,7 @@ from keyboards.default_keyboard import menu_buttons
 from loader import dp, jinja_env
 
 
-@dp.message_handler(Command(['menu', 'меню'], ignore_case=True))
+@dp.message_handler(Text(equals=['меню', 'menu', '/menu', '/меню'], ignore_case=True))
 async def menu(message: Message):
     template = jinja_env.get_template('index.html')
     return await message.reply(template.render(), reply_markup=menu_buttons)

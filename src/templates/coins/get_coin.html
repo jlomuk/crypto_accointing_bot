@@ -1,0 +1,7 @@
+<u>Подробная информация по {{data.name}}:</u>
+<i><b>
+Название: {{data.name}}
+Краткое имя: {{data.shortcut}}
+Капитализация: {{'$' +  data.capitalization|format_capitalization if data.capitalization is not none else 'Нет информации'}}
+Цена: {{'$' + data.market_price|format_price if data.market_price is not none else 'Нет информации'}}
+</b></i>

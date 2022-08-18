@@ -1,4 +1,4 @@
-from sqlalchemy import select, delete
+from sqlalchemy import select, delete, update
 from sqlalchemy.engine import CursorResult
 
 from .base import BaseRepository
@@ -17,3 +17,8 @@ class CoinRepository(BaseRepository):
         statement = delete(self.table).where(self.table.c.shortcut == shortcut)
         async with self.connection.begin() as conn:
             await conn.execute(statement)
+
+    async def update(self, shortcut: str, update_data: dict):
+        statement = update(self.table).where(self.table.c.shortcut == shortcut)
+        async with self.connection.begin() as conn:
+            await conn.execute(statement, [update_data])

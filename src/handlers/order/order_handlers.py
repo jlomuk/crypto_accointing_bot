@@ -1,6 +1,6 @@
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Text
-from aiogram.types import Message, ReplyKeyboardRemove
+from aiogram.types import Message
 from loguru import logger
 
 from keyboards.default_keyboard import cancel_button

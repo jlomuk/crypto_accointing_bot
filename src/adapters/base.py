@@ -38,7 +38,9 @@ class BaseRepository:
         async with self.connection.begin() as conn:
             await conn.execute(statement)
 
-    async def distinct_shortcuts(self) -> dict:
+    async def distinct_shortcuts(self, mapped=True) -> dict | CursorResult:
         async with self.connection.begin() as conn:
             result: CursorResult = await conn.execute(select(distinct(self.table.c.shortcut)))
-            return result.mappings().all()
+            if mapped:
+                return result.mappings().all()
+            return result

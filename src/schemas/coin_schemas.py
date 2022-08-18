@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from pydantic import BaseModel, validator
 
 
@@ -6,6 +8,14 @@ class Coin(BaseModel):
     shortcut: str
     name: str
     capitalization: int | None
+    market_price: Decimal | None
+
+
+class CoinUpdate(BaseModel):
+    shortcut: str
+    name: str
+    capitalization: int
+    market_price: Decimal
 
 
 class DeleteCoinRequest(BaseModel):
